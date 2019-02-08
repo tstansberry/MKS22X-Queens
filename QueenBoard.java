@@ -78,12 +78,17 @@ public class QueenBoard {
       board[r][x] = board[r][x] - 1;
     }
     //Diagonal positive
-    for (int x = 1; x + r < board.length; x ++) {
-      board[r + x][c + x] = board[r + x][c + x] - 1;
+    int diff1 = Math.abs(r - c);
+    int diffX = c - diff1;
+    int diffY = r - diff1;
+    if (diffX < 0) diffX = 0;
+    if (diffY < 0) diffX = 0;
+    for (int x = 0; c - diff1 + x < board[r].length && r + diff1 - x >= 0; x ++) {
+      board[r + diff1 - x][c - diff1 + x] = board[r + diff1 - x][c - diff1 + x] - 1;
     }
     //Diagonal negative
-    for (int x = 1; r - x >= 0; x ++) {
-      board[r - x][c - x] = board[r - x][c - x] - 1;
+    for (int x = 0; diffX + x < board[r].length && diffY + x >= 0; x ++) {
+      board[diffY + x][diffX + x] = board[diffY + x][diffX + x] - 1;
     }
     //Vertical
     for (int x = 0; x < board.length; x ++) {
