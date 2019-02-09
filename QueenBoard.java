@@ -51,15 +51,20 @@ public class QueenBoard {
       board[r][x] = board[r][x] + 1;
     }
     //Diagonal positive
-    int diff1 = Math.abs(r - c);
-    int diffX = c - diff1;
-    int diffY = r - diff1;
+    int sum = (r + c);
+    int diffX = sum - c - 1;
+    int diffY = sum - r;
     if (diffX < 0) diffX = 0;
-    if (diffY < 0) diffX = 0;
-    for (int x = 0; c - diff1 + x < board[r].length && r + diff1 - x >= 0; x ++) {
-      board[r + diff1 - x][c - diff1 + x] = board[r + diff1 - x][c - diff1 + x] + 1;
+    if (sum > board.length) diffY = board.length - 1;
+    for (int x = 0; diffX + x < board[r].length && diffY - x >= 0; x ++) {
+      board[diffY - x][diffX + x] = board[diffY - x][diffX + x] + 1;
     }
     //Diagonal negative
+    int diff = Math.abs(r - c);
+    diffX = c - diff;
+    diffY = r - diff;
+    if (diffX < 0) diffX = 0;
+    if (diffY < 0) diffX = 0;
     for (int x = 0; diffX + x < board[r].length && diffY + x >= 0; x ++) {
       board[diffY + x][diffX + x] = board[diffY + x][diffX + x] + 1;
     }
@@ -78,15 +83,20 @@ public class QueenBoard {
       board[r][x] = board[r][x] - 1;
     }
     //Diagonal positive
-    int diff1 = Math.abs(r - c);
-    int diffX = c - diff1;
-    int diffY = r - diff1;
+    int sum = (r + c);
+    int diffX = sum - c - 1;
+    int diffY = sum - r;
     if (diffX < 0) diffX = 0;
-    if (diffY < 0) diffX = 0;
-    for (int x = 0; c - diff1 + x < board[r].length && r + diff1 - x >= 0; x ++) {
-      board[r + diff1 - x][c - diff1 + x] = board[r + diff1 - x][c - diff1 + x] - 1;
+    if (sum > board.length) diffY = board.length - 1;
+    for (int x = 0; diffX + x < board[r].length && diffY - x >= 0; x ++) {
+      board[diffY - x][diffX + x] = board[diffY - x][diffX + x] - 1;
     }
     //Diagonal negative
+    int diff = Math.abs(r - c);
+    diffX = c - diff;
+    diffY = r - diff;
+    if (diffX < 0) diffX = 0;
+    if (diffY < 0) diffX = 0;
     for (int x = 0; diffX + x < board[r].length && diffY + x >= 0; x ++) {
       board[diffY + x][diffX + x] = board[diffY + x][diffX + x] - 1;
     }
