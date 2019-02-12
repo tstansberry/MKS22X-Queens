@@ -107,7 +107,7 @@ public class QueenBoard {
     int x  = c + 1;
     int y = r - 1;
     while (x < board.length && y >= 0) {
-      board[y][x]  = board[y][x] + 1;
+      board[y][x]  = board[y][x] - 1;
       x ++;
       y --;
     }
