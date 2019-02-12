@@ -1,7 +1,9 @@
 public class QueenBoard {
+  private int sum;
+
   public static void main(String[] args) {
     QueenBoard  board = new QueenBoard(8);
-    System.out.println("True: " + board.solve());
+    System.out.println(board.countSolutions());
   }
 
   private int[][] board;
@@ -19,13 +21,12 @@ public class QueenBoard {
   public String toString() {
     String output = "";
     for (int[] x: board) {
-      output += "[";
       for (int y: x) {
-        if (y == -1) output += "Q, ";
-        else output += y + ", ";
+        if (y == -1) output += "Q ";
+        else output += "_ ";
       }
-      output = output.substring(0, output.length() - 2);
-      output += "]\n";
+      output = output.substring(0, output.length() - 1);
+      output += "\n";
     }
     return output;
   }
@@ -38,7 +39,6 @@ public class QueenBoard {
     if (c >= board.length) return true;
     for (int r = 0; r < board.length; r ++) {
       if (addQueen(r, c)) {
-        System.out.println(this.toString());
         if (solveHelper(c + 1)) return true;
         removeQueen(r, c);
       }
@@ -46,11 +46,31 @@ public class QueenBoard {
     return false;
   }
 
-/*
-  public int countSolutions() {
 
+  public int countSolutions() {
+    if (board.length == 0) return 0;
+    if (board[0][0] != 0){
+      throw new IllegalStateException();
+    }
+    solutionsHelper(0);
+    return sum;
   }
-*/
+
+  private void solutionsHelper(int r) {
+    if (r >= board.length) sum ++;
+    else{
+      if (r < 0 ){
+          throw new IllegalStateException("");
+        }
+        for (int c = 0; c < board.length; c ++){
+            if (addQueen(r,c)){
+                solutionsHelper(r + 1);
+                removeQueen(r, c);
+            }
+        }
+    }
+}
+
   private boolean addQueen(int r, int c) {
     if (board[r][c] != 0 || r >= board.length || c >= board.length) return false;
     //Horizontal
