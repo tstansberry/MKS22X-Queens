@@ -31,24 +31,19 @@ public class QueenBoard {
   }
 
   public boolean solve() {
-    return solveHelper(0, 0, 0);
+    return solveHelper(0);
   }
 
-  private boolean solveHelper(int r, int c, int queens) {
-    System.out.println(this.toString());
-    if (queens == board.length) return true;
-    if (c >= board.length && r == 0) return false;
-    if (c >= board.length) {
-      int x = 0;
-      boolean notDone = true;
-      while (x < board.length || notDone) {
-        notDone = ! removeQueen(r - 1, x);
-        x ++;
+  private boolean solveHelper(int c) {
+    if (c >= board.length) return true;
+    for (int r = 0; r < board.length; r ++) {
+      if (addQueen(r, c)) {
+        System.out.println(this.toString());
+        if (solveHelper(c + 1)) return true;
+        removeQueen(r, c);
       }
-      return solveHelper(r - 1, x - 1, queens - 1);
     }
-    if (addQueen(r, c)) return solveHelper(r + 1, 0, queens + 1);
-    else return solveHelper(r, c + 1, queens);
+    return false;
   }
 
 /*
@@ -57,7 +52,7 @@ public class QueenBoard {
   }
 */
   private boolean addQueen(int r, int c) {
-    if (board[r][c] != 0) return false;
+    if (board[r][c] != 0 || r >= board.length || c >= board.length) return false;
     //Horizontal
     for (int x = 0; x < board[r].length; x ++) {
       board[r][x] = board[r][x] + 1;
@@ -89,7 +84,7 @@ public class QueenBoard {
     //Diagonal down-left
     x  = c - 1;
     y = r + 1;
-    while (x >= 0 && r < board.length) {
+    while (x >= 0 && y < board.length) {
       board[y][x] = board[y][x] + 1;
       x --;
       y ++;
@@ -135,7 +130,7 @@ public class QueenBoard {
     //Diagonal down-left
     x  = c - 1;
     y = r + 1;
-    while (x >= 0 && r < board.length) {
+    while (x >= 0 && y < board.length) {
       board[y][x] = board[y][x] - 1;
       x --;
       y ++;
